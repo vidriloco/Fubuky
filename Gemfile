@@ -6,13 +6,16 @@ gem 'rails', '3.0.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # gem 'sqlite3'
-
+gem 'pg'
 gem 'jquery-rails'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'watchr'
   gem 'spork', '~> 0.9.0.rc'
+  gem 'factory_girl_rails'
+  gem 'capybara', :git => 'git://github.com/jnicklas/capybara.git'
+  gem 'database_cleaner'
 end
 
 # Use unicorn as the web server
