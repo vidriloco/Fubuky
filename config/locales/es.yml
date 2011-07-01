@@ -1,0 +1,8 @@
+en:
+  survey:
+    yml:
+      validations:
+        client_not_found: "El cliente no existe. Por favor, regístralo con el nombre que aparece en la encuesta"
+        client_not_given: "El nombre del cliente no fue dado. Por favor, revisa el archivo descriptor de la encuesta y verifica que el nombre del cliente no este vacío"
+        questions_not_given: "El archivo descriptor de la encuesta no contiene ninguna pregunta. Por favor, añade al menos una"
+        name_not_given: "Esta encuesta aparentemente carece de nombre. Por favor, verifica que el campo nombre en el archivo descriptor de la encuesta no esté vacío"

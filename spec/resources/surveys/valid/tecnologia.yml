@@ -1,0 +1,202 @@
+
+survey:
+  name: "Uso de tecnologías web"
+  size: 200
+  identifies_user: false
+  client: "Heroku"
+  question_list:
+
+    1:
+      text: "¿Cuántas horas por semana dedica a estar conectado a internet?"
+      allowed_answers:
+        max: 1 
+        min: 1
+      answers:
+        1:
+          text: "Menos de 5 horas"
+          klass: "Cerrada"
+        2:
+          text: "5 a 9 horas"
+          klass: "Cerrada"
+        3:
+          text: "10 a 19 horas"
+          klass: "Cerrada"
+        4:
+          text: "20 horas o más"
+          klass: "Cerrada"
+
+    2:
+      text: "¿Cuál es el motor de búsqueda de su elección?"
+      allowed_answers:
+        max: 1 
+        min: 1
+      answers:
+        1:
+          text: "Google"
+          klass: "Cerrada"
+        2:
+          text: "Yahoo"
+          klass: "Cerrada"
+        3:
+          text: "Bing"
+          klass: "Cerrada"
+        4:
+          text: "Otro"
+          klass: "Abierta" 
+
+    3:
+      text: "De la lista siguiente, seleccione las redes sociales en las que está inscrito"
+      allowed_answers:
+        min: 1
+      answers:
+        1:
+          text: "Twitter"
+          klass: "Cerrada"
+        2:
+          text: "Facebook"
+          klass: "Cerrada"
+        3:
+          text: "Orkut"
+          klass: "Cerrada"
+        4:
+          text: "Google +"
+          klass: "Abierta"
+
+    4:
+      text: "¿Cuentas con conocimientos en plataformas para publicación de contenidos tales como Wordpress, Harmony, Joomla, etc?"
+      allowed_answers:
+        max: 1 
+        min: 1
+      answers:
+        1:
+          text: "Si"
+          klass: "Cerrada"
+        2:
+          text: "No"
+          klass: "Cerrada"
+      rules:
+        1:
+          next_question: 9
+          condition: "una"
+          answers: [2]
+
+    5:
+      klass: "Ponderable"
+      text: "Ordena del 1 al 4 la plataforma de contenidos que consideres es la más completa"
+      answers:
+        1:
+          text: "Wordpress"
+          klass: "Cerrada"
+        2:
+          text: "Mephisto"
+          klass: "Cerrada"
+        3:
+          text: "Harmony"
+          klass: "Cerrada"
+        4:
+          text: "Joomla"
+          klass: "Cerrada"
+
+    6:
+      klass: "Suma Constante"
+      text: "Entre tus conocidos que predominancia de uso tienen las siguientes plataformas de publicación  de contenidos. Suma constante a 100"
+      valores:
+        max: 100
+        min: 0
+      allowed_answers:
+        min: 1
+      answers:
+        1:
+          text: "Wordpress"
+          klass: "Cerrada"
+        2:
+          text: "Mephisto"
+          klass: "Cerrada"
+        3:
+          text: "Harmony"
+          klass: "Cerrada"
+        4:
+          text: "Joomla"
+          klass: "Cerrada"       
+
+    7:
+      klass: "Escala de Likert"
+      text: "¿Qué importancia das a diferentes aspectos al momento de elegir una plataforma de publicación de contenidos?"
+      allowed_answers:
+        max: 1
+        min: 1
+      subanswers:
+        1:
+          text: "Mucho"
+        2:
+          text: "Poco"
+        3:
+          text: "Nada"
+      
+      answers:
+        1:
+          text: "Tamaño de la Comunidad"
+          klass: "Cerrada"
+        2:
+          text: "Moda"
+          klass: "Cerrada"
+        3:
+          text: "Disponibilidad de documentación"
+          klass: "Cerrada"
+        4:
+          text: "Lenguaje de programación"
+          klass: "Cerrada" 
+        5:
+          text: "Número de plug-ins"
+          klass: "Cerrada"   
+
+    8:
+      klass: "Escala de Likert"
+      text: "Selecciona los componentes que consideras son los mejores en cada plataforma de publicación de contenidos"
+      allowed_answers:
+        min: 1
+      subanswers:
+        1:
+          text: "Manejo de plugins"
+        2:
+          text: "Sistema de votación"
+        3:
+          text: "Manejo de Posts"
+        4:
+          text: "Integración con redes sociales"
+
+      answers:
+        1:
+          text: "Wordpress"
+          klass: "Cerrada"
+        2:
+          text: "Mephisto"
+          klass: "Cerrada"
+        3:
+          text: "Harmony"
+          klass: "Cerrada"
+        4:
+          text: "Joomla"
+          klass: "Cerrada"     
+
+    9:
+      text: "Según tú opinión, el software de código abierto es:"
+      allowed_answers:
+        max: 1
+        min: 1
+      answers:
+        1:
+          text: "Muy bueno"
+          klass: "Cerrada"
+        2:
+          text: "Bueno"
+          klass: "Cerrada"
+        3:
+          text: "Regular"
+          klass: "Cerrada"
+        4:
+          text: "Malo"
+          klass: "Cerrada"
+        5:
+          text: "Muy malo"
+          klass: "Cerrada"

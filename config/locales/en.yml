@@ -2,4 +2,10 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  survey:
+    yml:
+      validations:
+        client_not_found: "Client doesn't exists. Please, try registering one with the name that appears in the survey description file"
+        client_not_given: "Client name was not given. Please, check the survey description file and make sure the client's name field is not empty"
+        questions_not_given: "The survey description file has no questions on it. Please add at least one"
+        name_not_given: "This survey apparently lacks a name. Please, double check the survey description file for this survey's name"
