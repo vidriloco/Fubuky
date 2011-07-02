@@ -39,7 +39,7 @@ describe Survey do
       end
     end
     
-    describe "non-valid survey" do
+    describe "non-valid survey with missing fields" do
       before(:each) do
         @survey = Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/data_or_questions_missing.yml")
         Client.new(:name => "Heroku").save
@@ -60,6 +60,20 @@ describe Survey do
         @survey.errors.should include({ :questions => [I18n.t('survey.yml.validations.questions_not_given')] })
       end
       
+    end
+    
+    describe "non-valid survey with no content" do
+      
+      before(:each) do
+        @survey = Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/empty_survey.yml")
+      end
+      
+      it "should not be marked as valid given it is totally empty" do
+        @survey.should_not be_valid
+        @survey.errors.should include({ :questions => [I18n.t('survey.yml.validations.questions_not_given')],
+                                        :client => [I18n.t('survey.yml.validations.client_not_given')],
+                                        :name => [I18n.t('survey.yml.validations.name_not_given')] })
+      end
     end
     
   end

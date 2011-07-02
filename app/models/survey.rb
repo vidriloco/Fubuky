@@ -1,5 +1,6 @@
 class Survey
   include MongoMapper::Document
+  include AggregationFunctions
   
   key :name, String
   key :size, Integer
@@ -14,18 +15,16 @@ class Survey
   def self.read_from_yml(filename)
     f=File.open(filename).read
     s=Survey.new 
-    s.assign_attrs(Psych.load(f)["survey"])
+    yml=Psych.load(f)
+    s.assign_attrs(yml["survey"]) if yml
     s
   end
   
   def assign_attrs(hash)
+    return if hash.blank?
     hash.each_key { |key| self.send("#{key}=", hash[key]) }
     
-    (question_list || {}).each_key do |key|
-      q=Question.new
-      q.assign_attrs(question_list[key])
-      questions << q
-    end
+    aggregate_embedded(:questions)
   end
 
   def bulk_field_check
