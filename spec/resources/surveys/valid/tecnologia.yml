@@ -1,7 +1,19 @@
+# Authors: Alejandro E. Cruz Paz - Comunicación Constructiva
 # survey correct sintactically
+
 # allowed_answers: max , min
 # max : defaults to -1 if not specified (-1 : all of the available answers can be selected)
 # min : defaults to 1 if not specified (1 : only one answer can be selected)
+
+# allowed_subanswers: max , min (On Likert-Scale)
+# max : defaults to -1 if not specified (-1 : all of the available subanswers can be selected)
+# min : defaults to 1 if not specified (1 : only one subanswer can be selected)
+
+# weighing: max, min (On Constant Sum)
+# max : defaults to -1 if not specified (-1 : ordering top limit)
+# min : defaults to 1 if not specified (1 : ordering bottom limit)
+# example : max [4] min[1] => 4 is the highest option and 1 is the lowest
+#           max [1] min[4] => 1 is the highest option and 4 is the lowest
 
 survey:
   name: "Uso de tecnologías web"
@@ -37,7 +49,7 @@ survey:
           text: "Bing"
         4:
           text: "Otro"
-          klass: "Abierta" 
+          style: "Abierta" 
 
     3:
       text: "De la lista siguiente, selecciona las redes sociales en las que estás inscrito"
@@ -69,8 +81,12 @@ survey:
           answers: [2]
 
     5:
-      klass: "Ponderable"
+      klass: "QuestionP"
       text: "Ordena del 1 al 4 la plataforma de contenidos que consideres es la más completa"
+      
+      weighing:
+        max: 4
+        min: 1
       answer_list:
         1:
           text: "Wordpress"
@@ -82,9 +98,10 @@ survey:
           text: "Joomla"
 
     6:
-      klass: "Suma Constante"
+      klass: "QuestionCS"
       text: "Entre tus conocidos que predominancia de uso tienen las siguientes plataformas de publicación  de contenidos. Suma constante a 100"
-      valores:
+      
+      weighing:
         max: 100
         min: 0
       answer_list:
@@ -98,11 +115,14 @@ survey:
           text: "Joomla"
 
     7:
-      klass: "Escala de Likert"
+      klass: "QuestionLS"
       text: "¿Qué importancia das a diferentes aspectos al momento de elegir una plataforma de publicación de contenidos?"
-      allowed_answers:
+      #weighing: - Not Applicable
+      allowed_subanswers:
         max: 1
-      subanswers:
+        min: 1
+      
+      subanswer_list:
         1:
           text: "Mucho"
         2:
@@ -123,9 +143,11 @@ survey:
           text: "Número de plug-ins"
 
     8:
-      klass: "Escala de Likert"
+      klass: "QuestionLS"
       text: "Selecciona los componentes que consideras son los mejores en cada plataforma de publicación de contenidos"
-      subanswers:
+      #weighing: - Not Applicable 
+      
+      subanswer_list:
         1:
           text: "Manejo de plugins"
         2:

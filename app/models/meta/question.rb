@@ -1,4 +1,4 @@
-class Question
+class Meta::Question
   include MongoMapper::EmbeddedDocument
   include AggregationFunctions
   
@@ -6,15 +6,16 @@ class Question
   key :text, String
   key :max_answers, Integer, :default => -1
   key :min_answers, Integer, :default => 1
-  many :answers
-  many :rules
+  many :answers, :class => Meta::Answer 
+  many :rules, :class => Meta::Rule
   
   validate :bulk_field_check
   
-  attr_accessor :answer_list, :rule_list, :no_data
+  attr_accessor :answer_list, :rule_list, :no_data, :aggregated_errors
   
   def assign_attrs(number, hash)
     return if hash.nil?
+    self.aggregated_errors = []
     self.number = number
     self.text = hash["text"]
     
@@ -31,10 +32,10 @@ class Question
   end
   
   def bulk_field_check
-    skope="question.yml.validations"
+    @skope="question.yml.validations"
     
-    errors.add(:text, I18n.t("#{skope}.text_empty")) if text.blank?  
-    errors.add(:answers, I18n.t("#{skope}.answers_not_given")) if answers.blank?   
-    errors.add(:rules, I18n.t("#{skope}.rules_not_given")) if rule_list.nil?
+    errors.add(:text, I18n.t("#{@skope}.text_empty")) if text.blank?  
+    errors.add(:answers, I18n.t("#{@skope}.answers_not_given")) if answers.blank?   
+    errors.add(:rules, I18n.t("#{@skope}.rules_not_given")) if rule_list.nil?
   end
 end

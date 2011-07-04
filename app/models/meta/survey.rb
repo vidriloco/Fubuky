@@ -1,4 +1,4 @@
-class Survey
+class Meta::Survey
   include MongoMapper::Document
   include AggregationFunctions
   
@@ -6,7 +6,7 @@ class Survey
   key :size, Integer
   key :identifies_user, Boolean
   key :client, String
-  many :questions
+  many :questions, :class => Meta::Question
     
   validate :bulk_field_check
   
@@ -14,7 +14,7 @@ class Survey
   
   def self.read_from_yml(filename)
     f=File.open(filename).read
-    s=Survey.new 
+    s=self.new 
     yml=Psych.load(f)
     s.assign_attrs(yml["survey"]) if yml
     s
@@ -23,7 +23,6 @@ class Survey
   def assign_attrs(hash)
     return if hash.blank?
     hash.each_key { |key| self.send("#{key}=", hash[key]) }
-    
     aggregate_embedded(:questions)
   end
 

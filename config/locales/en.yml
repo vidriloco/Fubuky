@@ -7,5 +7,5 @@ en:
       validations:
         client_not_found: "Client doesn't exists. Please, try registering one with the name that appears in the survey description file"
         client_not_given: "Client name was not given. Please, check the survey description file and make sure the client's name field is not empty"
-        questions_not_given: "The survey description file has no questions on it. Please add at least one"
+        questions_not_given: "The survey description file has no questions on it, or it has any which is not well formed"
         name_not_given: "This survey apparently lacks a name. Please, double check the survey description file for this survey's name"

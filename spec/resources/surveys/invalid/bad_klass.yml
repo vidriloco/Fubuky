@@ -1,0 +1,24 @@
+# survey correct sintactically
+# allowed_answers: max , min
+# max : defaults to -1 if not specified (-1 : all of the available answers can be selected)
+# min : defaults to 1 if not specified (1 : only one answer can be selected)
+
+survey:
+  name: "Uso de tecnologías web"
+  size: 200
+  identifies_user: false
+  client: "Heroku"
+  question_list:
+
+    1:
+      klass: "Quest"
+      text: "Ordena del 1 al 4 la plataforma de contenidos que consideres es la más completa"
+      answer_list:
+        1:
+          text: "Wordpress"
+        2:
+          text: "Mephisto"
+        3:
+          text: "Harmony"
+        4:
+          text: "Joomla"

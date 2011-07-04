@@ -1,0 +1,28 @@
+
+survey:
+  name: "Uso de tecnologías web"
+  size: 200
+  identifies_user: false
+  client: "Heroku"
+  question_list:
+    1:
+      klass: "QuestionLS"
+      text: "¿Qué importancia das a diferentes aspectos al momento de elegir una plataforma de publicación de contenidos?"
+      #weighing: - Not Applicable
+      allowed_subanswers:
+        max: 1
+        min: 1
+
+      subanswer_list:
+
+      answer_list:
+        1:
+          text: "Tamaño de la Comunidad"
+        2:
+          text: "Moda"
+        3:
+          text: "Disponibilidad de documentación"
+        4:
+          text: "Lenguaje de programación"
+        5:
+          text: "Número de plug-ins"

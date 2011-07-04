@@ -1,19 +1,19 @@
 #encoding:utf-8
 require 'spec_helper'
 
-describe Question do
+describe Meta::Question do
+  
+  before(:each) do
+    @question = Meta::Question.new
+  end
   
   describe "when feeding a correctly YML formatted survey" do
   
     before(:each) do
-      @survey = Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/valid/tecnologia.yml")               
+      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/valid/tecnologia.yml")               
     end
     
     describe "on a simple question" do
-    
-      before(:each) do
-        @question = Question.new
-      end
     
       it "should have all it's attributes set and be marked as valid" do
         @question.assign_attrs(1, @survey.question_list[1])
@@ -22,7 +22,7 @@ describe Question do
         @question.max_answers.should == 1
         @question.min_answers.should == 1
         @question.answers.length.should == 4
-        @question.answers.each { |a| a.should be_an_instance_of(Answer) }
+        @question.answers.each { |a| a.should be_an_instance_of(Meta::Answer) }
         @question.should be_valid
       end
       
@@ -33,7 +33,7 @@ describe Question do
         @question.max_answers.should == 1
         @question.min_answers.should == 1
         @question.answers.length.should == 4
-        @question.answers.each { |a| a.should be_an_instance_of(Answer) }
+        @question.answers.each { |a| a.should be_an_instance_of(Meta::Answer) }
         @question.should be_valid
       end
       
@@ -44,7 +44,7 @@ describe Question do
         @question.max_answers.should == -1
         @question.min_answers.should == 1
         @question.answers.length.should == 5
-        @question.answers.each { |a| a.should be_an_instance_of(Answer) }
+        @question.answers.each { |a| a.should be_an_instance_of(Meta::Answer) }
         @question.should be_valid
       end
       
@@ -55,9 +55,9 @@ describe Question do
         @question.max_answers.should == 1
         @question.min_answers.should == 1
         @question.answers.length.should == 2
-        @question.answers.each { |a| a.should be_an_instance_of(Answer) }
+        @question.answers.each { |a| a.should be_an_instance_of(Meta::Answer) }
         @question.rules.length.should == 1
-        @question.rules.each { |r| r.should be_an_instance_of(Rule) }
+        @question.rules.each { |r| r.should be_an_instance_of(Meta::Rule) }
         @question.should be_valid
       end
       
@@ -68,7 +68,7 @@ describe Question do
         @question.max_answers.should == 1
         @question.min_answers.should == 1
         @question.answers.length.should == 5
-        @question.answers.each { |a| a.should be_an_instance_of(Answer) }
+        @question.answers.each { |a| a.should be_an_instance_of(Meta::Answer) }
         @question.should be_valid
       end
     end
@@ -78,14 +78,10 @@ describe Question do
   describe "when feeding an incorrectly YML formatted survey" do
   
     before(:each) do
-      @survey = Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/answers_missing.yml")               
+      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/answers_missing.yml")               
     end
     
     describe "on a simple question" do
-    
-      before(:each) do
-        @question = Question.new
-      end
     
       it "should be marked as non valid given it lacks text content" do
         @question.assign_attrs(1, @survey.question_list[1])
