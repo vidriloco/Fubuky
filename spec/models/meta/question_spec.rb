@@ -75,10 +75,18 @@ describe Meta::Question do
     
   end
   
+  describe "when feeding a YML formatted survey which has bad question embedded fields" do
+    
+    before(:each) do
+      
+    end
+    
+  end
+  
   describe "when feeding an incorrectly YML formatted survey" do
   
     before(:each) do
-      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/answers_missing.yml")               
+      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/answer_missing.yml")               
     end
     
     describe "on a simple question" do

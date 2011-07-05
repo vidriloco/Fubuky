@@ -9,6 +9,7 @@ class Meta::Survey
   many :questions, :class => Meta::Question#, :polymorphic => true
     
   validate :bulk_field_check
+  validates_associated :questions, :message => I18n.t("survey.yml.validations.questions_invalid")
   
   attr_accessor :question_list
   
@@ -27,14 +28,13 @@ class Meta::Survey
   end
 
   def bulk_field_check
-    skope="survey.yml.validations"
-    
-    errors.add(:name, I18n.t("#{skope}.name_not_given")) if name.blank?  
-    errors.add(:client, I18n.t("#{skope}.client_not_given")) if client.blank?   
-    errors.add(:questions, I18n.t("#{skope}.questions_not_given")) if questions.empty?
+    @skope="survey.yml.validations"
+    errors.add(:name, I18n.t("#{@skope}.name_not_given")) if name.blank?  
+    errors.add(:client, I18n.t("#{@skope}.client_not_given")) if client.blank?   
+    errors.add(:questions, I18n.t("#{@skope}.questions_not_given")) if questions.empty?
     
     unless client.blank?
-      errors.add(:client, I18n.t("#{skope}.client_not_found")) if Client.first(:name => client).nil?   
+      errors.add(:client, I18n.t("#{@skope}.client_not_found")) if Client.first(:name => client).nil?   
     end
   end
   

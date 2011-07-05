@@ -53,7 +53,7 @@ describe Meta::QuestionLS do
   describe "when feeding an incorrectly YML formatted survey" do
     
     before(:each) do
-      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/subanswers_missing.yml")               
+      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/subanswer_missing.yml")               
     end
     
     it "should be marked as invalid given it has a not defined set of subanswers" do

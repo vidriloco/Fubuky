@@ -6,6 +6,8 @@ class Meta::QuestionLS < Meta::Question
   
   attr_accessor :sub_answer_list
   
+  validates_associated :sub_answers, :message => I18n.t("question.yml.validations.sub_answers_invalid")
+  
   def assign_attrs(number, hash)
     super
     

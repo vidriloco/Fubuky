@@ -12,6 +12,8 @@ class Meta::Question
   #embedded_in :survey
   
   validate :bulk_field_check
+  validates_associated :answers, :message => I18n.t("question.yml.validations.answers_invalid")
+  validates_associated :rules, :message => I18n.t("question.yml.validations.rules_invalid")
   
   attr_accessor :answer_list, :rule_list, :no_data
   

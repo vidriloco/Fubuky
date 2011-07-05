@@ -35,13 +35,41 @@ describe Meta::Survey do
           @survey.questions.map { |q| q.should be_a_kind_of(Meta::Question) } 
           @survey.should be_valid
         end
+        
+        it "should save it's embedded fields when send save message" do
+          @survey.save
+          saved_survey = Meta::Survey.first
+          saved_survey.questions.length.should == @s_question_number
+          # simple question Meta::Question
+          saved_survey.questions.first.should be_an_instance_of(Meta::Question)
+          saved_survey.questions.first.answers.length.should == 4 
+          saved_survey.questions.first.answers.last.text.should == "20 horas o más"
+          # simple question with rules 
+          saved_survey.questions[3].should be_an_instance_of(Meta::Question)
+          saved_survey.questions[3].answers.length.should == 2
+          saved_survey.questions[3].answers.first.text.should == "Si"
+          saved_survey.questions[3].rules.length.should == 1
+          rule=saved_survey.questions[3].rules.first
+          rule.next_question.should == 9
+          rule.expected_answers.should == [2]
+          rule.condition.should == "one"
+          # checking classes
+          saved_survey.questions[4].should be_an_instance_of(Meta::QuestionP)
+          saved_survey.questions[5].should be_an_instance_of(Meta::QuestionCS)
+          # likert-scale question Meta::QuestionLS
+          saved_survey.questions[6].should be_an_instance_of(Meta::QuestionLS)
+          saved_survey.questions[6].answers.length.should == 5
+          saved_survey.questions[6].answers.first.text.should == "Tamaño de la Comunidad"
+          saved_survey.questions[6].sub_answers.length.should == 3
+          saved_survey.questions[6].sub_answers.first.text.should == "Mucho"
+        end
       
       end
     end
     
     describe "non-valid survey with missing fields" do
       before(:each) do
-        @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/data_or_questions_missing.yml")
+        @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/questions_name_client_missing.yml")
         Client.new(:name => "Heroku").save
       end
       
@@ -62,10 +90,24 @@ describe Meta::Survey do
       
     end
     
+    describe "non-valid survey due it's embedded fields emptyness" do
+      
+      before(:each) do
+        Client.new(:name => "Heroku").save
+        @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/answer_missing.yml")
+      end
+      
+      it "should not be marked as valid" do
+        @survey.should_not be_valid
+        @survey.errors.should include({ :questions => [I18n.t("survey.yml.validations.questions_invalid")] })
+      end
+      
+    end
+    
     describe "non-valid survey with no content" do
       
       before(:each) do
-        @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/empty_survey.yml")
+        @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/invalid/survey_empty.yml")
       end
       
       it "should not be marked as valid given it is totally empty" do
