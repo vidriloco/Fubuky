@@ -49,7 +49,7 @@ survey:
           text: "Bing"
         4:
           text: "Otro"
-          style: "Abierta" 
+          style: "Open" 
 
     3:
       text: "De la lista siguiente, selecciona las redes sociales en las que estás inscrito"
@@ -77,8 +77,8 @@ survey:
       rule_list:
         1:
           next_question: 9
-          condition: "una"
-          answers: [2]
+          condition: "one"
+          expected_answers: [2]
 
     5:
       klass: "QuestionP"

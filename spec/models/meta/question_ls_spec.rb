@@ -25,8 +25,8 @@ describe Meta::QuestionLS do
         @question.min_subanswers.should == 1
         @question.answers.length.should == 5
         @question.answers.each { |a| a.should be_a_kind_of(Meta::Answer) }
-        @question.subanswers.length.should == 3
-        @question.subanswers.each { |a| a.should be_a_kind_of(Meta::Subanswer) }
+        @question.sub_answers.length.should == 3
+        @question.sub_answers.each { |a| a.should be_a_kind_of(Meta::SubAnswer) }
         @question.should be_valid
       end
       
@@ -40,8 +40,8 @@ describe Meta::QuestionLS do
         @question.min_subanswers.should == 1
         @question.answers.length.should == 4
         @question.answers.each { |a| a.should be_a_kind_of(Meta::Answer) }
-        @question.subanswers.length.should == 4
-        @question.subanswers.each { |a| a.should be_a_kind_of(Meta::Subanswer) }
+        @question.sub_answers.length.should == 4
+        @question.sub_answers.each { |a| a.should be_a_kind_of(Meta::SubAnswer) }
         @question.should be_valid
       end
       
@@ -60,7 +60,7 @@ describe Meta::QuestionLS do
       @question.assign_attrs(1, @survey.question_list[1])
       
       @question.should_not be_valid
-      @question.errors.should include({ :subanswers => [I18n.t('question.yml.validations.subanswers_not_defined')] })
+      @question.errors.should include({ :subanswers => [I18n.t('question.yml.validations.sub_answers_not_defined')] })
     end
     
   end

@@ -9,13 +9,14 @@ class Meta::Question
   many :answers, :class => Meta::Answer 
   many :rules, :class => Meta::Rule
   
+  #embedded_in :survey
+  
   validate :bulk_field_check
   
-  attr_accessor :answer_list, :rule_list, :no_data, :aggregated_errors
+  attr_accessor :answer_list, :rule_list, :no_data
   
   def assign_attrs(number, hash)
     return if hash.nil?
-    self.aggregated_errors = []
     self.number = number
     self.text = hash["text"]
     

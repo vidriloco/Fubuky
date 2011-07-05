@@ -1,9 +1,8 @@
-class Meta::Answer
+class Meta::SubAnswer
   include MongoMapper::EmbeddedDocument
   
   key :number, Integer
   key :text, String
-  key :style, String, :default => "Closed" 
   
   validate :bulk_field_check
   
@@ -11,11 +10,10 @@ class Meta::Answer
     return if hash.nil?
     self.number = number
     self.text = hash["text"]
-    self.style = hash["style"] if hash["style"]
   end
   
   def bulk_field_check
-    errors.add(:answer, I18n.t('answer.yml.validations.empty')) if(text.blank? || number.blank?)
+    errors.add(:sub_answer, I18n.t('sub_answer.yml.validations.text_not_given')) if text.blank?
+    errors.add(:sub_answer, I18n.t('sub_answer.yml.validations.no_number_given')) if number.blank?
   end
-  
 end

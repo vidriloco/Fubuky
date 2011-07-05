@@ -1,8 +1,7 @@
-# survey correct sintactically
-# allowed_answers: max , min
-# max : defaults to -1 if not specified (-1 : all of the available answers can be selected)
-# min : defaults to 1 if not specified (1 : only one answer can be selected)
-
+# survey sintactically wrong
+# list of answers is incomplete
+# one question item is cited but lacks content
+# text was not given in first question on question list
 survey:
   name: "Uso de tecnologías web"
   size: 200

@@ -2,9 +2,9 @@ class Meta::QuestionLS < Meta::Question
   key :max_subanswers, Integer, :default => -1
   key :min_subanswers, Integer, :default => 1
   
-  many :subanswers, :class => Meta::Subanswer
+  many :sub_answers, :class => Meta::SubAnswer
   
-  attr_accessor :subanswer_list
+  attr_accessor :sub_answer_list
   
   def assign_attrs(number, hash)
     super
@@ -14,13 +14,13 @@ class Meta::QuestionLS < Meta::Question
       self.min_subanswers = hash["allowed_subanswers"]["min"]
     end
     
-    self.subanswer_list = hash["subanswer_list"]
-    aggregate_embedded(:subanswers)
+    self.sub_answer_list = hash["subanswer_list"]
+    aggregate_embedded(:sub_answers)
   end
   
   def bulk_field_check
     super
     
-    errors.add(:subanswers, I18n.t("#{@skope}.subanswers_not_defined")) if subanswers.blank?   
+    errors.add(:subanswers, I18n.t("#{@skope}.sub_answers_not_defined")) if sub_answers.blank?   
   end
 end

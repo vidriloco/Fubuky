@@ -6,7 +6,7 @@ class Meta::Survey
   key :size, Integer
   key :identifies_user, Boolean
   key :client, String
-  many :questions, :class => Meta::Question
+  many :questions, :class => Meta::Question#, :polymorphic => true
     
   validate :bulk_field_check
   
