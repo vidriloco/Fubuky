@@ -3,6 +3,21 @@ require 'spec_helper'
 
 describe Meta::Survey do
   
+  describe "given a survey is registered to a client" do
+    
+    before(:each) do
+      Client.create(:name => "Heroku")
+      @survey = Meta::Survey.read_from_yml("#{YML_SURVEY_FIXTURES}/valid/tecnologia.yml")
+      @survey.save
+    end
+
+    it "should find a survey by id and return a new fillable survey (Survey:Class) associated to it" do
+      survey_f = Meta::Survey.new_fillable_survey(@survey.id)
+      survey_f.should be_an_instance_of(Survey)
+      survey_f.meta_survey.should == @survey
+    end
+  end
+  
   describe "when feeding a YML formatted" do
   
     describe "correct survey" do
@@ -23,7 +38,7 @@ describe Meta::Survey do
       describe "and given the client owning the survey is registered" do
       
         before(:each) do
-           Client.new(:name => "Heroku").save
+           Client.create(:name => "Heroku")
         end
       
         it "should have all it's attributes set and be marked as valid" do

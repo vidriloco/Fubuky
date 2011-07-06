@@ -1,0 +1,3 @@
+<% @m_surveys.each do |s| %>
+	<%= link_to s.name, new_mobile_metum_survey_path(s.id) %>
+<% end %>

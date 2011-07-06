@@ -34,7 +34,10 @@ module Base
 
     # JavaScript files you want as :defaults (application.js is always included).
     # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
-
+    config.action_view.javascript_expansions[:mobile] = %w(sencha-touch app).map { |item| "mobile/#{item}" }
+    
+    config.action_view.stylesheet_expansions[:mobile] = %w(sencha-touch).map { |item| "mobile/#{item}" }
+    
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 

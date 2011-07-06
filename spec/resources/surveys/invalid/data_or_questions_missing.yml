@@ -1,7 +1,0 @@
-# This survey is invalid due lacking a name, client and questions
-survey:
-  name: 
-  size: 200
-  identifies_user: false
-  client: 
-  questions: 

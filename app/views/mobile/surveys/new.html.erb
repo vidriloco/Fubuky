@@ -1,0 +1,7 @@
+
+<% @survey.meta_survey.questions.each do |question| %>
+	<div class="question" id="<%= question.id %>">
+		<span class="number"><%= question.number %>.</span>
+		<span class="text"><%= question.text %>
+	</div>
+<% end %>

@@ -7,6 +7,8 @@ class Meta::Survey
   key :identifies_user, Boolean
   key :client, String
   many :questions, :class => Meta::Question#, :polymorphic => true
+  
+  many :surveys
     
   validate :bulk_field_check
   validates_associated :questions, :message => I18n.t("survey.yml.validations.questions_invalid")
@@ -19,6 +21,10 @@ class Meta::Survey
     yml=Psych.load(f)
     s.assign_attrs(yml["survey"]) if yml
     s
+  end
+  
+  def self.new_fillable_survey(id)
+    Object::Survey.new(:meta_survey => self.find(id))
   end
   
   def assign_attrs(hash)

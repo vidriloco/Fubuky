@@ -25,6 +25,12 @@ Base::Application.routes.draw do
   #     end
   #   end
 
+  namespace :mobile do
+    resources :meta, :only => [:index] do
+      resources :surveys, :only => [:new]
+    end
+  end
+
   # Sample resource route with sub-resources:
   #   resources :products do
   #     resources :comments, :sales
