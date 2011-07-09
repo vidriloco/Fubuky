@@ -1,8 +1,10 @@
 class Meta::SubAnswer
-  include MongoMapper::EmbeddedDocument
+  include Mongoid::Document
   
-  key :number, Integer
-  key :text, String
+  field :number, type: Integer
+  field :text, type: String
+  
+  embedded_in :question_ls, :class_name => "Meta::QuestionLS"
   
   validate :bulk_field_check
   

@@ -1,6 +1,6 @@
 class Meta::QuestionP < Meta::Question
-  key :max_weighing, Integer, :default => -1
-  key :min_weighing, Integer, :default => 1
+  field :max_weighing, type: Integer, default: -> { -1 }
+  field :min_weighing, type: Integer, default: -> { 1 }
   
   def assign_attrs(number, hash)
     super

@@ -1,9 +1,11 @@
 class Meta::Answer
-  include MongoMapper::EmbeddedDocument
+  include Mongoid::Document
   
-  key :number, Integer
-  key :text, String
-  key :style, String, :default => "Closed" 
+  field :number, type: Integer
+  field :text, type: String
+  field :style, type: String, default: -> { "Closed" } 
+  
+  embedded_in :question, :class_name => "Meta::Question"
   
   validate :bulk_field_check
   

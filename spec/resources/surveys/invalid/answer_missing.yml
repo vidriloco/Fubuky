@@ -6,7 +6,7 @@ survey:
   name: "Uso de tecnologías web"
   size: 200
   identifies_user: false
-  client: "Heroku"
+  client_name: "Heroku"
   question_list:
 
     1:

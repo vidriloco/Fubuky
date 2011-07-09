@@ -1,17 +1,24 @@
 class Meta::Survey
-  include MongoMapper::Document
+  include Mongoid::Document
   include AggregationFunctions
   
-  key :name, String
-  key :size, Integer
-  key :identifies_user, Boolean
-  key :client, String
-  many :questions, :class => Meta::Question#, :polymorphic => true
-    
-  validate :bulk_field_check
-  validates_associated :questions, :message => I18n.t("survey.yml.validations.questions_invalid")
+  cattr_reader :skope
+  @@skope = "survey.yml.validations"
   
-  attr_accessor :question_list
+  field :name, type: String
+  field :size, type: Integer
+  field :identifies_user, type: Boolean
+  
+  embeds_many :questions, :class_name => "Meta::Question"
+  
+  belongs_to :client
+
+  validates_presence_of :client, :message => I18n.t("#{@@skope}.client_not_found_or_not_given")
+  validates_presence_of :questions, :message => I18n.t("#{@@skope}.questions_not_given")
+  validates_presence_of :name, :message => I18n.t("#{@@skope}.name_not_given")
+  validates_associated :questions, :message => I18n.t("#{@@skope}.malformed_questions_provided")
+  
+  attr_accessor :question_list, :client_name
   
   def self.read_from_yml(filename)
     f=File.open(filename).read
@@ -24,18 +31,8 @@ class Meta::Survey
   def assign_attrs(hash)
     return if hash.blank?
     hash.each_key { |key| self.send("#{key}=", hash[key]) }
+    self.client = Client.where(name: client_name).first
     aggregate_embedded(:questions)
-  end
-
-  def bulk_field_check
-    @skope="survey.yml.validations"
-    errors.add(:name, I18n.t("#{@skope}.name_not_given")) if name.blank?  
-    errors.add(:client, I18n.t("#{@skope}.client_not_given")) if client.blank?   
-    errors.add(:questions, I18n.t("#{@skope}.questions_not_given")) if questions.empty?
-    
-    unless client.blank?
-      errors.add(:client, I18n.t("#{@skope}.client_not_found")) if Client.first(:name => client).nil?   
-    end
   end
   
 end

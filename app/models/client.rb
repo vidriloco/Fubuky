@@ -1,5 +1,9 @@
 class Client
-  include MongoMapper::Document
+  include Mongoid::Document
   
-  key :name, String, :unique => true
+  field :name, type: String, :unique => true
+  validates_uniqueness_of :name
+  
+  has_many :surveys
+  
 end

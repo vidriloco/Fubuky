@@ -1,10 +1,12 @@
 class Meta::Rule
-  include MongoMapper::EmbeddedDocument
+  include Mongoid::Document  
   
-  key :number, Integer
-  key :next_question, Integer
-  key :condition, String
-  key :expected_answers, Array
+  field :number, type: Integer
+  field :next_question, type: Integer
+  field :condition, type: String
+  field :expected_answers, type: Array
+  
+  embedded_in :question, :class_name => "Meta::Question"
   
   validate :bulk_field_check
   

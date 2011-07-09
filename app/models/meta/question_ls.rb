@@ -1,8 +1,7 @@
 class Meta::QuestionLS < Meta::Question
-  key :max_subanswers, Integer, :default => -1
-  key :min_subanswers, Integer, :default => 1
-  
-  many :sub_answers, :class => Meta::SubAnswer
+  field :max_subanswers, type: Integer, default: -> { -1 }
+  field :min_subanswers, type: Integer, default: -> { 1 }
+  embeds_many :sub_answers, :class_name => "Meta::SubAnswer"
   
   attr_accessor :sub_answer_list
   

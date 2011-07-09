@@ -1,15 +1,15 @@
 class Meta::Question
-  include MongoMapper::EmbeddedDocument
+  include Mongoid::Document  
   include AggregationFunctions
   
-  key :number, Integer
-  key :text, String
-  key :max_answers, Integer, :default => -1
-  key :min_answers, Integer, :default => 1
-  many :answers, :class => Meta::Answer 
-  many :rules, :class => Meta::Rule
+  field :number, type: Integer
+  field :text, type: String
+  field :max_answers, type: Integer, default: -> { -1 }
+  field :min_answers, type: Integer, default: -> { 1 }
+  embeds_many :answers, :class_name => "Meta::Answer"
+  embeds_many :rules, :class_name => "Meta::Rule"
   
-  #embedded_in :survey
+  embedded_in :survey
   
   validate :bulk_field_check
   validates_associated :answers, :message => I18n.t("question.yml.validations.answers_invalid")
@@ -21,10 +21,11 @@ class Meta::Question
     return if hash.nil?
     self.number = number
     self.text = hash["text"]
+
     
-    if hash["allowed_answers"]
-      self.max_answers &&= hash["allowed_answers"]["max"]
-      self.min_answers &&= hash["allowed_answers"]["min"]
+    if all_ans = hash["allowed_answers"]
+      self.max_answers = all_ans["max"] unless all_ans["max"].blank? 
+      self.min_answers = all_ans["min"] unless all_ans["min"].blank? 
     end
     
     self.answer_list = hash["answer_list"]

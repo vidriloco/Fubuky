@@ -8,8 +8,10 @@ gem 'rails', '3.0.8'
 # gem 'sqlite3'
 gem 'pg'
 gem 'jquery-rails'
-gem 'mongo_mapper'
+
+gem 'mongoid'
 gem 'bson_ext'
+gem 'devise'
 
 group :development, :test do
   gem 'rspec-rails'
